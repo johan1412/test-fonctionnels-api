@@ -2,20 +2,16 @@
 
 const router = require('express').Router();
 const Product = require('../model/Product');
+const User = require('../model/User');
+
 const verify  = require('../verifyToken');
+const jwt =  require('jsonwebtoken');
 
 router.post('/',verify ,async (req,res)=>{
-    const product = new Product({
-        name : req.body.name,
-        type : req.body.type,
-        price : req.body.price,
-        rating : req.body.rating,
-        warranty_years : req.body.warranty_years,
-        available : req.body.available
-    });
+    const product = new Product(req.body);
     try {
         const productsave = await product.save();
-        res.send(productsave);
+        res.status(201).send(productsave);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -49,16 +45,35 @@ router.delete('/:produitId', verify ,async (req,res)=>{
     }
 });
 
-router.patch('/:produitId', verify ,async (req,res)=>{
+router.put('/:produitId', verify ,async (req,res)=>{
+    const product = await Product.findById(req.params.produitId);
+    const user = await User.findById(product.user);
+
+    if (req.headers && req.headers['auth-token']) {
+        var authorization = req.headers['auth-token'],
+            decoded;
+        try {
+            decoded = jwt.verify(authorization,process.env.TOKEN_SECRET);
+        } catch (e) {
+            return res.status(401).send('unauthorized');
+        }
+        const tokenUser = await User.findById(decoded.id);
+    }
+
+    //TODO : Control roles : if admin allow edit, if not admin allow edit if product.user = tokenUser
+
+    if(tokenUser.role == "ROLE_USER"){
+        if(tokenUser.id != user.id){
+            return res.status(403).send('forbidden');
+        }
+    }
+
+    //TODO : Do the same with delete & patch 
+
     try {
         const rmoveproduct = await Product.updateOne({_id:req.params.produitId},{$set:
-            {
-                name : req.body.name,type : req.body.type,
-                price : req.body.price,
-                rating : req.body.rating,
-                warranty_years : req.body.warranty_years,
-                available : req.body.available
-            }});
+           req.body
+        });
         res.send(rmoveproduct);
     } catch (error) {
         res.status(400).send(error);

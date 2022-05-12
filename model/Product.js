@@ -1,5 +1,5 @@
 
-const {Schema} = require("mongoose");
+const { Schema } = require("mongoose");
 const conn = require("../lib/mongo");
 
 const productSchema = new Schema({
@@ -11,9 +11,13 @@ const productSchema = new Schema({
     type: Number,
     required: true,
   },
-  tags : [
-    {type: Schema.Types.ObjectId,ref:'Tag'}
-]
+  tags: [
+    { type: Schema.Types.ObjectId, ref: 'Tag' }
+  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
-module.exports = conn.model('Product',productSchema);
+module.exports = conn.model('Product', productSchema);

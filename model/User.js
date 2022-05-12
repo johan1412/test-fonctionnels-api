@@ -14,6 +14,11 @@ const userSchema = new Schema({
     max: 255,
     min:6
   },
+  role:{
+    type: String,
+    enum : ['ROLE_ADMIN','ROLE_USER'],
+    default: 'ROLE_USER'
+  },
   password: {
     type: String,
     required: true,
