@@ -2,7 +2,10 @@
 
 const router = require('express').Router();
 const Product = require('../model/Product');
+const User = require('../model/User');
+
 const verify  = require('../verifyToken');
+const jwt =  require('jsonwebtoken');
 
 router.post('/',verify ,async (req,res)=>{
     const product = new Product(req.body);
@@ -46,7 +49,19 @@ router.put('/:produitId', verify ,async (req,res)=>{
     const product = await Product.findById(req.params.produitId);
     const user = await User.findById(product.user);
 
-    //ifs
+    if (req.headers && req.headers['auth-token']) {
+        var authorization = req.headers['auth-token'],
+            decoded;
+        try {
+            decoded = jwt.verify(authorization,process.env.TOKEN_SECRET);
+        } catch (e) {
+            return res.status(401).send('unauthorized');
+        }
+        const tokenUser = await User.findById(decoded.id);
+    }
+
+    //TODO : Control roles : if admin allow edit, if not admin allow edit if product.user = tokenUser
+    //TODO : Do the same with delete & patch 
 
     try {
         const rmoveproduct = await Product.updateOne({_id:req.params.produitId},{$set:
