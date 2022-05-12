@@ -12,10 +12,10 @@ router.post('/register', async (req,res)=>{
     //if (error) return res.status(400).send(error.details[0].messsage);  
 
     // CHECK PASSWORD IF EXIST
+    
     const emailExist = await User.findOne({email : req.body.email});
     if (emailExist) return res.status(400).send("Email already exists");  
 
-    console.log(req.body)
     // HASH PASSWORD
     const salt =  await bcrypt.genSalt(10);
     const hashedPassword =  await bcrypt.hash(req.body.password,salt);
@@ -30,6 +30,7 @@ router.post('/register', async (req,res)=>{
         // res.send({user : user._id});
         res.send(savedUser);
     }catch(err) {
+        console.error(err)
         res.status(400).send(err);
     }
 });
@@ -50,7 +51,7 @@ router.post('/login', async (req,res)=>{
     // CEEATE AND SIGN A TOKEN
     const token =  jwt.sign({_id: user._id}, process.env.TOKEN_SECRET); 
     res.header('auth-token',token).send(token);
-    res.send('Logged in !!!');
+    //res.send('Logged in !!!');
 })
 
 

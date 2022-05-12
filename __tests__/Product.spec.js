@@ -7,6 +7,19 @@ afterAll(async () => {
   await connection.close();
 });
 
+
+
+beforeAll(async () => {
+  const user = await client.post("/api/users/register")
+  .set("Content-Type", "application/json")
+  .send({
+    name: "Latif Test",
+    email:"test17@gmail.com",
+    password:"password"
+  });
+  
+});
+
 describe("test Product Api", () => {
   it("Should return unauthorized error :", async () => {
     const response = await client.get("/api/products");
@@ -14,15 +27,14 @@ describe("test Product Api", () => {
  //   expect(response.body.length).toBe(0);
   });
 
-  /*it("should create a new product", async () => {
+  it("get token of user", async () => {
     const response = await client
-      .post("/products")
+      .post("/api/users/login")
       .set("Content-Type", "application/json")
       .send({
-        name: "Test Product",
+        email:"test17@gmail.com",
+        password:"password"
       });
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty("id");
-    expect(response.body.name).toBe("Test Product");
-  });*/
+    expect(response.status).toBe(200);
+  });
 });
