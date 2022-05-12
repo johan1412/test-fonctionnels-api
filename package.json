@@ -1,35 +1,24 @@
 {
-  "name": "testsapi",
-  "version": "1.0.0",
-  "description": "Projet tests api",
-  "main": "index.js",
-  "scripts": {
-    "start": "nodemon server.js",
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gitlab.com/b_amine/test-fonctionnels-api.git"
-  },
-  "keywords": [
-    "test",
-    "api",
-    "js"
-  ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://gitlab.com/b_amine/test-fonctionnels-api/issues"
-  },
-  "homepage": "https://gitlab.com/b_amine/test-fonctionnels-api#readme",
-  "dependencies": {
-    "cucumber": "^6.0.7",
-    "express": "^4.18.1",
-    "jest": "^28.1.0",
-    "mongoose": "^5.12.7",
-    "supertest": "^6.2.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  }
+    "name": "expressnode",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@hapi/joi": "^15.0.3",
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.11.5"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
 }
