@@ -61,6 +61,13 @@ router.put('/:produitId', verify ,async (req,res)=>{
     }
 
     //TODO : Control roles : if admin allow edit, if not admin allow edit if product.user = tokenUser
+
+    if(tokenUser.role == "ROLE_USER"){
+        if(tokenUser.id != user.id){
+            return res.status(403).send('forbidden');
+        }
+    }
+
     //TODO : Do the same with delete & patch 
 
     try {
