@@ -5,17 +5,10 @@ const Product = require('../model/Product');
 const verify  = require('../verifyToken');
 
 router.post('/',verify ,async (req,res)=>{
-    const product = new Product({
-        name : req.body.name,
-        type : req.body.type,
-        price : req.body.price,
-        rating : req.body.rating,
-        warranty_years : req.body.warranty_years,
-        available : req.body.available
-    });
+    const product = new Product(req.body);
     try {
         const productsave = await product.save();
-        res.send(productsave);
+        res.status(201).send(productsave);
     } catch (error) {
         res.status(400).send(error);
     }
