@@ -1,5 +1,10 @@
 const express = require('express')
 const app = express()
-app.listen(8080, () => {
-    console.log('Server Listening')
+
+app.get('/', (req,res) => {
+    res.send("Welcome")
+})
+
+app.listen(3000, () => {
+    console.log('Server Listening !')
   })

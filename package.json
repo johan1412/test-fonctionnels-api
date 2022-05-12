@@ -4,6 +4,7 @@
   "description": "Projet tests api",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "test"
   },
   "repository": {
@@ -22,6 +23,10 @@
   },
   "homepage": "https://gitlab.com/b_amine/test-fonctionnels-api#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mongoose": "^5.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }
