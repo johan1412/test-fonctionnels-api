@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://gitlab.com/b_amine/test-fonctionnels-api/issues"
   },
-  "homepage": "https://gitlab.com/b_amine/test-fonctionnels-api#readme"
+  "homepage": "https://gitlab.com/b_amine/test-fonctionnels-api#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
 }
