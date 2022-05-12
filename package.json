@@ -13,10 +13,13 @@
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
+        "cucumber": "^6.0.7",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
+        "jest": "^28.1.0",
         "jsonwebtoken": "^8.5.1",
-        "mongoose": "^5.11.5"
+        "mongoose": "^5.11.5",
+        "supertest": "^6.2.3"
     },
     "devDependencies": {
         "nodemon": "^2.0.6"
