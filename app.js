@@ -9,19 +9,6 @@ const productRouter = require('./routes/product');
 const tagRouter = require('./routes/tag');
 const authRouter = require('./routes/auth');
 
-
-
-dotenv.config();
-//connect to db
-mongoose.connect(
-  process.env.DB_CONNECT,{ useNewUrlParser: true });
-mongoose.connection.once('open',function(){
-  console.log('Database connected Successfully');
-}).on('error',function(error) {
-  console.log('error is',error);
-});
-
-
 //Middlewares
 app.use(express.json());
 

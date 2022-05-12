@@ -3,18 +3,18 @@ const supertest = require("supertest");
 
 const client = supertest(require("../app.js"));
 
-afterAll(async () => {
+/*afterAll(async () => {
   await sequelize.close();
-});
+});*/
 
-describe("test Product Api", () => {
-  it("should return all products", async () => {
-    const response = await client.get("/products");
-    expect(response.status).toBe(200);
-    expect(response.body.length).toBe(0);
+describe("test Tag Api", () => {
+  it("Should return unauthorized error :", async () => {
+    const response = await client.get("/api/tags");
+    expect(response.status).toBe(401);
+ //   expect(response.body.length).toBe(0);
   });
 
-  it("should create a new product", async () => {
+  /*it("should create a new product", async () => {
     const response = await client
       .post("/products")
       .set("Content-Type", "application/json")
@@ -24,5 +24,5 @@ describe("test Product Api", () => {
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty("id");
     expect(response.body.name).toBe("Test Product");
-  });
+  });*/
 });
