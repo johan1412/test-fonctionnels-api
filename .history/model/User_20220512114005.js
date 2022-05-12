@@ -1,5 +1,5 @@
-const {Schema} = require('mongoose');
-const conn = require("../lib/mongo");
+const { Schema } = require("mongoose");
+const conn = require("../../lib/mongo");
 
 const userSchema = new Schema({
   name: {

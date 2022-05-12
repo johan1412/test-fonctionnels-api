@@ -15,4 +15,4 @@ const userSchema = new Schema({
   }
 })
 
-module.exports = conn.model('Tag',userSchema);
+module.exports = mongosse.model('Tag',userSchema);

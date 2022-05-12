@@ -1,6 +1,6 @@
 
-const {Schema} = require("mongoose");
-const conn = require("../lib/mongo");
+const mongosse = require("mongoose");
+const conn = require("../../lib/mongo");
 
 const productSchema = new Schema({
   name: {
@@ -28,8 +28,8 @@ const productSchema = new Schema({
     required: true,
   },
   tags : [
-    {type: Schema.Types.ObjectId,ref:'Tag'}
+    {type: mongoose.Schema.Types.ObjectId,ref:'Tag'}
 ]
 })
 
-module.exports = conn.model('Product',productSchema);
+module.exports = con.model('Product',productSchema);

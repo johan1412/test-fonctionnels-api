@@ -2,6 +2,7 @@ var cors = require('cors')
 
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 const dotenv =  require('dotenv');
 // const bodyParser =  require('body-parser');
 
@@ -18,6 +19,14 @@ dotenv.config();
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
 //connect to db
+mongoose.connect(
+  process.env.DB_CONNECT,{ useNewUrlParser: true });
+mongoose.connection.once('open',function(){
+  console.log('Database connected Successfully');
+}).on('error',function(error) {
+  console.log('error is',error);
+});
+
 
 //Middlewares
 app.use(express.json());
@@ -29,8 +38,4 @@ app.use('/api/users',authRouter);
 
 
 
-// set port, listen for requests
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+app.listen(3000);

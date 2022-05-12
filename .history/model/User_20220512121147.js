@@ -1,7 +1,5 @@
-const {Schema} = require('mongoose');
-const conn = require("../lib/mongo");
-
-const userSchema = new Schema({
+const mongoose = require('mongoose');
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -27,4 +25,4 @@ const userSchema = new Schema({
   }
 })
 
-module.exports = conn.model('User',userSchema);
+module.exports = mongoose.model('User',userSchema);
