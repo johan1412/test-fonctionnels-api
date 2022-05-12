@@ -42,16 +42,16 @@ router.delete('/:produitId', verify ,async (req,res)=>{
     }
 });
 
-router.patch('/:produitId', verify ,async (req,res)=>{
+router.put('/:produitId', verify ,async (req,res)=>{
+    const product = await Product.findById(req.params.produitId);
+    const user = await User.findById(product.user);
+
+    //ifs
+
     try {
         const rmoveproduct = await Product.updateOne({_id:req.params.produitId},{$set:
-            {
-                name : req.body.name,type : req.body.type,
-                price : req.body.price,
-                rating : req.body.rating,
-                warranty_years : req.body.warranty_years,
-                available : req.body.available
-            }});
+           req.body
+        });
         res.send(rmoveproduct);
     } catch (error) {
         res.status(400).send(error);
