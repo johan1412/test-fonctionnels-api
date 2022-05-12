@@ -1,5 +1,5 @@
 
-const {Schema} = require("mongoose");
+const { Schema } = require("mongoose");
 const conn = require("../lib/mongo");
 
 const productSchema = new Schema({
@@ -28,7 +28,7 @@ const productSchema = new Schema({
     required: true,
   },
   tags : [
-    {type: Schema.Types.ObjectId,ref:'Tag'}
+    {type: mongoose.Schema.Types.ObjectId,ref:'Tag'}
 ]
 })
 

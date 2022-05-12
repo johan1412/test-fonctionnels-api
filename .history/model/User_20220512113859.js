@@ -1,5 +1,5 @@
-const {Schema} = require('mongoose');
-const conn = require("../lib/mongo");
+const { Schema } = require("mongoose");
+const conn = require("../../lib/mongo");
 
 const userSchema = new Schema({
   name: {
@@ -27,4 +27,7 @@ const userSchema = new Schema({
   }
 })
 
-module.exports = conn.model('User',userSchema);
+const Currency = conn.model("Currency", CurrencySchema);
+
+module.exports = Currency;
+module.exports = mongoose.model('User',userSchema);

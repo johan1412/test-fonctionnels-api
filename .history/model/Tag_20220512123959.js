@@ -1,8 +1,7 @@
 const {Schema} = require("mongoose");
-const conn = require("../lib/mongo");
 
 
-const userSchema = new Schema({
+const userSchema = new mongosse.Schema({
   label: {
     type: String,
     required: true,
@@ -10,9 +9,9 @@ const userSchema = new Schema({
     max: 255
   },
   product :{
-      type: Schema.Types.ObjectId,
+      type: mongosse.Schema.Types.ObjectId,
       ref:'Product'
   }
 })
 
-module.exports = conn.model('Tag',userSchema);
+module.exports = mongosse.model('Tag',userSchema);

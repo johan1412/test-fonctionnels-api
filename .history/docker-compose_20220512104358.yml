@@ -1,7 +1,6 @@
-  
 version: "3.4"
 services:
-  mongo:
+  db:
     image: mongo
     ports:
       - 27017:27017
@@ -12,6 +11,7 @@ services:
       - ./SampleCollections:/usr/local/sampleCollections
     working_dir: /usr/local/sampleCollections
 
+ 
   server:
     image: node:alpine3.10
     ports:
@@ -23,9 +23,8 @@ services:
     volumes:
       - ./:/home/node/app
     depends_on:
-      - mongo
+      - db
     working_dir: /home/node/app
     command: sh -c "npm install --no-update-notifier; npm start --no-update-notifier"
 
-volumes:
-  db-data: {}
+ 

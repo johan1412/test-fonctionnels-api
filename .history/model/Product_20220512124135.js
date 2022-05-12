@@ -28,8 +28,8 @@ const productSchema = new Schema({
     required: true,
   },
   tags : [
-    {type: Schema.Types.ObjectId,ref:'Tag'}
+    {type: mongoose.Schema.Types.ObjectId,ref:'Tag'}
 ]
 })
 
-module.exports = conn.model('Product',productSchema);
+module.exports = mongosse.model('Product',productSchema);

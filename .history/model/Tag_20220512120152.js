@@ -1,6 +1,5 @@
-const {Schema} = require("mongoose");
-const conn = require("../lib/mongo");
-
+const { Schema } = require("mongoose");
+const conn = require("../../lib/mongo");
 
 const userSchema = new Schema({
   label: {
@@ -10,7 +9,7 @@ const userSchema = new Schema({
     max: 255
   },
   product :{
-      type: Schema.Types.ObjectId,
+      type:Schema.Types.ObjectId,
       ref:'Product'
   }
 })

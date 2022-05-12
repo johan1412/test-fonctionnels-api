@@ -21,7 +21,7 @@ services:
       MONGO_URL: "mongodb://root:password@mongo:27017/app"
       JWT_SECRET: "secret"
     volumes:
-      - ./:/home/node/app
+      - ./server:/home/node/app
     depends_on:
       - mongo
     working_dir: /home/node/app

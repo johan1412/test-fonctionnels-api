@@ -21,10 +21,11 @@ services:
       MONGO_URL: "mongodb://root:password@mongo:27017/app"
       JWT_SECRET: "secret"
     volumes:
-      - ./:/home/node/app
+      - ./server:/home/node/app
     depends_on:
       - mongo
-    working_dir: /home/node/app
+
+      working_dir: /home/node/app
     command: sh -c "npm install --no-update-notifier; npm start --no-update-notifier"
 
 volumes:

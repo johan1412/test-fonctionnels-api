@@ -10,7 +10,7 @@ const userSchema = new Schema({
     max: 255
   },
   product :{
-      type: Schema.Types.ObjectId,
+      type: conn.Schema.Types.ObjectId,
       ref:'Product'
   }
 })
