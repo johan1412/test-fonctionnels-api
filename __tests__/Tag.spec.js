@@ -1,11 +1,11 @@
 const supertest = require("supertest");
-//const { sequelize } = require("../models/Tag.js");
+const connection = require("../lib/mongo");
 
 const client = supertest(require("../app.js"));
 
-/*afterAll(async () => {
-  await sequelize.close();
-});*/
+afterAll(async () => {
+  await connection.close();
+});
 
 describe("test Tag Api", () => {
   it("Should return unauthorized error :", async () => {
