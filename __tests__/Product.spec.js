@@ -7,9 +7,9 @@ afterAll(async () => {
   await connection.close();
 });
 
-describe("test Tag Api", () => {
+describe("test Product Api", () => {
   it("Should return unauthorized error :", async () => {
-    const response = await client.get("/api/tags");
+    const response = await client.get("/api/products");
     expect(response.status).toBe(401);
  //   expect(response.body.length).toBe(0);
   });
