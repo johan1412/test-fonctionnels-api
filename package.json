@@ -23,8 +23,11 @@
   },
   "homepage": "https://gitlab.com/b_amine/test-fonctionnels-api#readme",
   "dependencies": {
+    "cucumber": "^6.0.7",
     "express": "^4.18.1",
-    "mongoose": "^5.12.7"
+    "jest": "^28.1.0",
+    "mongoose": "^5.12.7",
+    "supertest": "^6.2.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
