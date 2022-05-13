@@ -1,16 +1,37 @@
 Feature: Product API
 
-    Scenario: Get all products
+    Scenario: Get all products anonymously
+        Given I load fixtures "product.json"
         When I request "GET" "/products"
-        Then I should receive an empty array
-        And the response code should be 200
-        And I should receive an array with 0 elements
+        Then the response code should be 401
 
-    Scenario: Get all products
+    Scenario: Get all products with admin
+        Given I load fixtures "user.json"
+        And I am authenticated as "admin"
         When I request "GET" "/products"
         Then I should receive an empty array
         And the response code should be 200
-        And I should receive an array with 0 elements
+
+    Scenario: Get all products with user
+        Given I load fixtures "user.json"
+        And I am authenticated as "user"
+        When I request "GET" "/products"
+        Then I should receive an empty array
+        And the response code should be 200
+
+    Scenario: Get all products with admin
+        Given I load fixtures "user.json,product.json"
+        And I am authenticated as "user"
+        When I request "GET" "/products"
+        Then I should receive 4 products
+        And the response code should be 200
+
+    Scenario: Get all products with user
+        Given I load fixtures "user.json,product.json"
+        And I am authenticated as "user"
+        When I request "GET" "/products"
+        Then I should receive 4 products
+        And the response code should be 200
 
     Scenario: Get a product
         Given I load fixtures "product.json"
