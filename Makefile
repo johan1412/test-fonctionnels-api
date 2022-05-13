@@ -6,3 +6,6 @@ start :
 
 stop :
 	docker-compose down
+
+cucumber :
+	docker-compose exec server npx cucumber

@@ -9,6 +9,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@cucumber/cucumber": "^8.2.0",
         "@hapi/joi": "^15.0.3",
         "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
