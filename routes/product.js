@@ -8,7 +8,26 @@ const verify  = require('../verifyToken');
 const jwt =  require('jsonwebtoken');
 
 router.post('/',verify ,async (req,res)=>{
-    const product = new Product(req.body);
+    let product = new Product(req.body);
+
+    if (req.headers && req.headers['auth-token']) {
+        var authorization = req.headers['auth-token'],
+            decoded;
+        try {
+            decoded = jwt.verify(authorization,process.env.TOKEN_SECRET);
+        } catch (e) {
+            return res.status(401).send('unauthorized');
+        }
+        var tokenUser = await User.findById(decoded._id);
+    }
+
+    if(tokenUser.role === "ROLE_USER"){
+        if(product.user?._id.toString() !== tokenUser._id.toString()){
+            return res.status(403).send('forbidden');
+        }
+        product = {...product,user:tokenUser._id}
+    }
+
     try {
         const productsave = await product.save();
         res.status(201).send(productsave);
