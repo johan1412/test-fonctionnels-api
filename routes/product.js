@@ -49,7 +49,7 @@ router.delete('/:produitId', verify ,async (req,res)=>{
         } catch (e) {
             return res.status(401).send('unauthorized');
         }
-        const tokenUser = await User.findById(decoded.id);
+        var tokenUser = await User.findById(decoded._id);
     }
 
     if(tokenUser.role == "ROLE_USER"){
