@@ -9,7 +9,7 @@ const userSchema = new Schema({
     min: 6,
     max: 255
   },
-  product :{
+  products :{
       type: Schema.Types.ObjectId,
       ref:'Product'
   }

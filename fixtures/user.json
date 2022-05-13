@@ -1,0 +1,17 @@
+{
+    "model": "User",
+    "data": {
+      "admin1": {
+        "name": "admin1",
+        "email": "admin1@admin1.fr",
+        "password": "mdpmdpmdp",
+        "role": "ROLE_ADMIN"
+      },
+      "user1": {
+        "name": "user1",
+        "email": "user1@user1.fr",
+        "password": "mdpmdpmdp",
+        "role": "ROLE_USER"
+      }
+    }
+  }

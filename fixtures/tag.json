@@ -1,0 +1,11 @@
+{
+    "model": "Tag",
+    "data": {
+      "haut": {
+        "label": "haut"
+      },
+      "bas": {
+        "label": "bas"
+      }
+    }
+  }
