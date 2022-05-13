@@ -53,14 +53,14 @@ router.delete('/:produitId', verify ,async (req,res)=>{
     }
 
     if(tokenUser.role == "ROLE_USER"){
-        if(tokenUser.id != user.id){
+        if(tokenUser._id.toString() !== user?._id.toString()){
             return res.status(403).send('forbidden');
         }
     }
 
     try {
         const rmoveproduct = await Product.remove({_id:req.params.produitId});
-        res.send(rmoveproduct);
+        res.status(204).send(rmoveproduct);
     } catch (error) {
         res.status(400).send(error);
     }
@@ -78,12 +78,12 @@ router.put('/:produitId', verify ,async (req,res)=>{
         } catch (e) {
             return res.status(401).send('unauthorized');
         }
-        const tokenUser = await User.findById(decoded.id);
+        var tokenUser = await User.findById(decoded._id);
     }
 
     if(tokenUser.role == "ROLE_USER"){
-        if(tokenUser.id != user.id){
-            return res.status(403).send('forbidden');
+        if(tokenUser._id.toString() !== user?._id.toString()){
+            return res.status(403).send('forbidden 2');
         }
     }
 
@@ -96,4 +96,41 @@ router.put('/:produitId', verify ,async (req,res)=>{
         res.status(400).send(error);
     }
 });
+
+router.patch('/:produitId', verify ,async (req,res)=>{
+    const product = await Product.findById(req.params.produitId);
+    const user = await User.findById(product.user);
+
+    if (req.headers && req.headers['auth-token']) {
+        var authorization = req.headers['auth-token'],
+            decoded;
+        try {
+            decoded = jwt.verify(authorization,process.env.TOKEN_SECRET);
+        } catch (e) {
+            return res.status(401).send('unauthorized');
+        }
+        var tokenUser = await User.findById(decoded._id);
+    }
+
+    if(tokenUser.role == "ROLE_USER"){
+        if(tokenUser._id.toString() !== user?._id.toString()){
+            return res.status(403).send('forbidden');
+        }
+    }
+
+    try {
+        const product = await Product.findById(req.params.produitId);
+        const patchProduct = await Product.updateOne({_id:req.params.produitId},{$set:
+           {
+               ...req.body,
+               name:req.body.name ? req.body.name : product.name,
+               price:req.body.price ? req.body.price : product.price,
+        }
+        });
+        res.send(patchProduct);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
 module.exports = router;
