@@ -7,13 +7,19 @@
         "user": "{{ admin1 }}"
       },
       "tshirt2": {
-        "name": "tshirt rouge"
+        "name": "tshirt rouge",
+        "price": 10,
+        "user": "{{ admin1 }}"
       },
       "pantalon1": {
-        "name": "levis1"
+        "name": "levis1",
+        "price": 10,
+        "user": "{{ admin1 }}"
       },
       "pantalon2": {
-          "name": "levis2"
+          "name": "levis2",
+          "price": 10,
+          "user": "{{ admin1 }}"
       }
     },
     "depends": ["user.json"]
