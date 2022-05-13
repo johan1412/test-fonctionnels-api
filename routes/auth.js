@@ -7,6 +7,9 @@ const jwt =  require('jsonwebtoken');
 
 
 router.post('/register', async (req,res)=>{
+    
+    let data = req.body
+
     // LETS VALIDATE A DATA BEFORE WE CREATE A USER 
     //const {error} = registerValidation(req.body);
     //if (error) return res.status(400).send(error.details[0].messsage);  
@@ -20,8 +23,10 @@ router.post('/register', async (req,res)=>{
     const salt =  await bcrypt.genSalt(10);
     const hashedPassword =  await bcrypt.hash(req.body.password,salt);
 
+    data.password = hashedPassword
+
     const user = new User(
-        req.body
+        data
     );
     try {
         const savedUser = await user.save();
@@ -50,6 +55,16 @@ router.post('/login', async (req,res)=>{
     const token =  jwt.sign({_id: user._id}, process.env.TOKEN_SECRET); 
     res.header('auth-token',token).send(token);
     //res.send('Logged in !!!');
+})
+
+router.get('/', async (req, res)=> {
+    try {
+        const user = await User.find();
+        res.send(user);
+        // res.setHeader('Access-Control-Allow-Origin','*');
+    } catch (error) {
+        res.status(400).send(error);
+    }
 })
 
 
