@@ -21,11 +21,12 @@ router.post('/',verify ,async (req,res)=>{
         var tokenUser = await User.findById(decoded._id);
     }
 
+
     if(tokenUser.role === "ROLE_USER"){
-        if(product.user?._id.toString() !== tokenUser._id.toString()){
+        if(typeof product.user !== 'undefined'){
             return res.status(403).send('forbidden');
         }
-        product = {...product,user:tokenUser._id}
+        product.user = tokenUser._id
     }
 
     try {
@@ -102,7 +103,7 @@ router.put('/:produitId', verify ,async (req,res)=>{
 
     if(tokenUser.role == "ROLE_USER"){
         if(tokenUser._id.toString() !== user?._id.toString()){
-            return res.status(403).send('forbidden 2');
+            return res.status(403).send('forbidden');
         }
     }
 
