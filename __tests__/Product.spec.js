@@ -58,6 +58,26 @@ describe("Test Product Api", () => {
     expect(response.status).toBe(401);
   });
 
+  it("Get products with admin role", async () => {
+    const response = await client.get("/api/products").set('auth-token', adminToken)
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
+  });
+
+  it("Get products with user role", async () => {
+    const response = await client.get("/api/products").set('auth-token', userToken)
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
+  });
+
+  it("Create product without authentification", async () => {
+    const response = await client.post("/api/products").send({
+      name: "name of product",
+      price: 10
+    })
+    expect(response.status).toBe(401);
+  });
+
   it("Create product with admin role", async () => {
     const response = await client.post("/api/products").set('auth-token', adminToken).send({
       name: "name of product",
@@ -86,6 +106,16 @@ describe("Test Product Api", () => {
       user: user._id
     })
     expect(response.status).toBe(403);
+  });
+
+  it("Delete product without authentification", async () => {
+    const createProduct = await client.post("/api/products").set('auth-token', adminToken).send({
+      name: "name of product",
+      price: 10
+    })
+
+    const deleteProduct = await client.delete(`/api/products/${createProduct.body._id}`)
+    expect(deleteProduct.status).toBe(401);
   });
 
   it("Delete product with admin role", async () => {
@@ -120,18 +150,19 @@ describe("Test Product Api", () => {
     expect(deleteProduct.status).toBe(403);
   });
 
+  it("Patch product without authentification", async () => {
+    const createProduct = await client.post("/api/products").set('auth-token', adminToken).send({
+      name: "name of product",
+      price: 10,
+      user: user._id
+    })
 
-  it("Get products with admin role", async () => {
-    const response = await client.get("/api/products").set('auth-token', adminToken)
-    expect(response.status).toBe(200);
-    expect(response.body.length).toBe(3);
+    const editedProduct = await client.patch(`/api/products/${createProduct.body._id}`)
+      .send({ name: "edited name" })
+    expect(editedProduct.status).toBe(401);
+
   });
 
-  it("Get products with user role", async () => {
-    const response = await client.get("/api/products").set('auth-token', userToken)
-    expect(response.status).toBe(200);
-    expect(response.body.length).toBe(3);
-  });
 
   it("Patch own product with user role", async () => {
     const createProduct = await client.post("/api/products").set('auth-token', adminToken).send({
@@ -141,7 +172,7 @@ describe("Test Product Api", () => {
     })
 
     const editedProduct = await client.patch(`/api/products/${createProduct.body._id}`).set('auth-token', userToken)
-    .send({name : "edited name"})
+      .send({ name: "edited name" })
     expect(editedProduct.status).toBe(200);
     expect(editedProduct.body.nModified).toBe(1);
 
@@ -155,7 +186,7 @@ describe("Test Product Api", () => {
     })
 
     const editedProduct = await client.patch(`/api/products/${createProduct.body._id}`).set('auth-token', userToken)
-    .send({name : "edited name"})
+      .send({ name: "edited name" })
     expect(editedProduct.status).toBe(403);
   });
 
@@ -167,11 +198,30 @@ describe("Test Product Api", () => {
     })
 
     const editedProduct = await client.patch(`/api/products/${createProduct.body._id}`).set('auth-token', userToken)
-    .send({name : "edited name"})
+      .send({ name: "edited name" })
     expect(editedProduct.status).toBe(200);
-    expect(editedProduct.body.nModified).toBe(1);  });
+    expect(editedProduct.body.nModified).toBe(1);
+  });
 
-    it("Update own product with user role", async () => {
+
+  it("Update product without authentification", async () => {
+    const createProduct = await client.post("/api/products").set('auth-token', adminToken).send({
+      name: "name of product",
+      price: 10,
+      user: user._id
+    })
+
+    const editedProduct = await client.put(`/api/products/${createProduct.body._id}`)
+      .send({
+        name: "edited name",
+        price: 10,
+        user: user._id
+      })
+    expect(editedProduct.status).toBe(401);
+
+  });
+
+  it("Update own product with user role", async () => {
     const createProduct = await client.post("/api/products").set('auth-token', adminToken).send({
       name: "name of product",
       price: 10,
@@ -179,11 +229,11 @@ describe("Test Product Api", () => {
     })
 
     const editedProduct = await client.put(`/api/products/${createProduct.body._id}`).set('auth-token', userToken)
-    .send({
-      name: "edited name",
-      price: 10,
-      user: user._id
-    })
+      .send({
+        name: "edited name",
+        price: 10,
+        user: user._id
+      })
     expect(editedProduct.status).toBe(200);
     expect(editedProduct.body.nModified).toBe(1);
 
@@ -197,11 +247,11 @@ describe("Test Product Api", () => {
     })
 
     const editedProduct = await client.put(`/api/products/${createProduct.body._id}`).set('auth-token', userToken)
-    .send({
-      name: "edited name",
-      price: 10,
-      user: user._id
-    })
+      .send({
+        name: "edited name",
+        price: 10,
+        user: user._id
+      })
     expect(editedProduct.status).toBe(403);
   });
 
@@ -213,11 +263,24 @@ describe("Test Product Api", () => {
     })
 
     const editedProduct = await client.put(`/api/products/${createProduct.body._id}`).set('auth-token', userToken)
-    .send({
-      name: "edited name",
-      price: 10,
-      user: user._id
-    })
+      .send({
+        name: "edited name",
+        price: 10,
+        user: user._id
+      })
     expect(editedProduct.status).toBe(200);
-    expect(editedProduct.body.nModified).toBe(1);  });
+    expect(editedProduct.body.nModified).toBe(1);
+  });
+
+  it("Get products with admin role after insertions", async () => {
+    const response = await client.get("/api/products").set('auth-token', adminToken)
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(12);
+  });
+
+  it("Get products with user role after insertions", async () => {
+    const response = await client.get("/api/products").set('auth-token', userToken)
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(12);
+  });
 });
