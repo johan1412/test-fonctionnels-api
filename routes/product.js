@@ -60,7 +60,7 @@ router.delete('/:produitId', verify ,async (req,res)=>{
 
     try {
         const rmoveproduct = await Product.remove({_id:req.params.produitId});
-        res.send(rmoveproduct);
+        res.status(204).send(rmoveproduct);
     } catch (error) {
         res.status(400).send(error);
     }

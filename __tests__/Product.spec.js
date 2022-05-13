@@ -73,7 +73,7 @@ describe("Test Product Api", () => {
     })
 
     const deleteProduct = await client.delete(`/api/products/${createProduct.body._id}`).set('auth-token', adminToken)
-    expect(deleteProduct.status).toBe(200);
+    expect(deleteProduct.status).toBe(204);
     });
 
   it("Get products without admin role : Should return status 200 and an array with with 1 size :", async () => {
