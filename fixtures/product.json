@@ -1,0 +1,20 @@
+{
+    "model": "Product",
+    "data": {
+      "tshirt1": {
+        "name": "tshirt bleu",
+        "price": 10,
+        "user": "{{ admin1 }}"
+      },
+      "tshirt2": {
+        "name": "tshirt rouge"
+      },
+      "pantalon1": {
+        "name": "levis1"
+      },
+      "pantalon2": {
+          "name": "levis2"
+      }
+    },
+    "depends": ["user.json"]
+  }
