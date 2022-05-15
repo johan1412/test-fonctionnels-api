@@ -6,14 +6,14 @@ Feature: Product API
         Then the response code should be 401
 
     Scenario: Get all products with admin
-        Given I load fixtures "user.json"
+        Given I load fixtures "user.json,product.json"
         And I am authenticated as "admin"
         When I request "GET" "/api/products"
         Then I should receive an empty array
         And the response code should be 200
 
     Scenario: Get all products with user
-        Given I load fixtures "user.json"
+        Given I load fixtures "user.json,product.json"
         And I am authenticated as "user"
         When I request "GET" "/api/products"
         Then I should receive an empty array
@@ -57,7 +57,7 @@ Feature: Product API
         Then the response code should be 401
 
     Scenario: Get a product with bad id
-        Given I load fixtures "product.json"
+        Given I load fixtures "user.json,product.json"
         When I request "GET" "/api/products/-1"
         Then the response code should be 404
 

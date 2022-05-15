@@ -161,7 +161,7 @@ Feature: User API
         And I have a payload
             | email      | "test2@test2.fr" |
         When I request "PATCH" "/api/users/{{ user1.id }}" with payload
-        Then the response code should be 403
+        Then the response code should be 401
 
     Scenario: Partially edit a user with admin
         Given I load fixtures "user.json"
